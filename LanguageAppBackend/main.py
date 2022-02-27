@@ -1,10 +1,9 @@
-from multiprocessing.connection import answer_challenge
 from flask import Flask
 from flask import request
 from flask_cors import CORS
 from flask_api import status
 from google.cloud import speech_v1 as speech
-from text_comparison import *
+from text_comparison import TextComparison
 import json
 
 app = Flask(__name__)
