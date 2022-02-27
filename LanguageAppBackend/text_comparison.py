@@ -1,5 +1,4 @@
 from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
 from pyxdameraulevenshtein import damerau_levenshtein_distance
 
 
@@ -9,7 +8,7 @@ class TextComparison:
         self.correct_answer = self.remove_puncuation(correct_answer)
 
     def remove_puncuation(self, sentence):
-        puncuation = """!()-[]{};:'"\,<>./?@#$%^&*_~"""
+        puncuation = """!()-[]{};:'",<>./?@#$%^&*_~"""
         for char in puncuation:
             sentence = sentence.replace(char, "")
 
