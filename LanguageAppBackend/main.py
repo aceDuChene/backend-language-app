@@ -3,6 +3,9 @@ from flask import request
 from flask_cors import CORS
 import json
 from google.cloud import speech_v1 as speech
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
+from pyxdameraulevenshtein import damerau_levenshtein_distance
 
 app = Flask(__name__)
 
@@ -30,6 +33,14 @@ def process_audio(language_code):
     else:
         return json.dumps({"text": "Audio Not detected. Try Again."}), 400
 
+@app.route("/text-comparison", methods=["POST"])
+def check_answer():
+    user_answer = request.json["user_answer"]
+    correct_answer = request.json["correct_answer"]
+    print(user_answer)
+    print(correct_answer)
+    return correct_answer
+
 
 if __name__ == "__main__":
-    app.run(host="'127.0.0.1'", port=8080, debug=True)
+    app.run(host="localhost", port=8090, debug=True)
