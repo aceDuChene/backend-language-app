@@ -2,6 +2,7 @@ from multiprocessing.connection import answer_challenge
 from flask import Flask
 from flask import request
 from flask_cors import CORS
+from flask_api import status
 from google.cloud import speech_v1 as speech
 from text_comparison import *
 import json
@@ -35,9 +36,16 @@ def process_audio(language_code):
 @app.route("/text-comparison", methods=["POST"])
 def check_answer():
     req = request.json
+
+    if "user_answer" not in req or "correct_answer" not in req:
+        return json.dumps({"error": "correct_answer and user_answer must be defined and must be strings"}), status.HTTP_400_BAD_REQUEST
+
+    if isinstance(req["user_answer"], str) is False or isinstance(req["correct_answer"], str) is False:
+        return json.dumps({"error": "correct_answer and user_answer must be strings"}), status.HTTP_400_BAD_REQUEST
+    
     comparison = TextComparison(req["user_answer"], req["correct_answer"])
     answer = comparison.check_answer()
-    return json.dumps({"answer": answer })
+    return json.dumps({"answer": answer }), status.HTTP_200_OK
 
 
 if __name__ == "__main__":
