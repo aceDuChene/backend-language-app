@@ -1,11 +1,10 @@
+from multiprocessing.connection import answer_challenge
 from flask import Flask
 from flask import request
 from flask_cors import CORS
-import json
 from google.cloud import speech_v1 as speech
-from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
-from pyxdameraulevenshtein import damerau_levenshtein_distance
+from text_comparison import *
+import json
 
 app = Flask(__name__)
 
@@ -35,11 +34,10 @@ def process_audio(language_code):
 
 @app.route("/text-comparison", methods=["POST"])
 def check_answer():
-    user_answer = request.json["user_answer"]
-    correct_answer = request.json["correct_answer"]
-    print(user_answer)
-    print(correct_answer)
-    return correct_answer
+    req = request.json
+    comparison = TextComparison(req["user_answer"], req["correct_answer"])
+    answer = comparison.check_answer()
+    return json.dumps({"answer": answer })
 
 
 if __name__ == "__main__":
