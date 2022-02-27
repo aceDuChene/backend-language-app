@@ -34,7 +34,7 @@ def process_audio(language_code):
         return json.dumps({"text": "Audio Not detected. Try Again."}), 400
 
 @app.route("/text-comparison", methods=["POST"])
-def check_answer():
+def compare_text():
     req = request.json
 
     if "user_answer" not in req or "correct_answer" not in req:
