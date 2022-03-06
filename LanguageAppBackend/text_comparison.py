@@ -1,6 +1,4 @@
 from fuzzywuzzy import fuzz
-from pyxdameraulevenshtein import damerau_levenshtein_distance
-
 
 class TextComparison:
     def __init__(self, user_answer, correct_answer):
@@ -17,7 +15,7 @@ class TextComparison:
     def check_answer(self):
         # Check basic Levenshtein Distance
         score = fuzz.ratio(self.correct_answer, self.user_answer)
-        if score >= 90:
+        if score >= 92:
             return True
 
         # Check if string contains the same words in different orders

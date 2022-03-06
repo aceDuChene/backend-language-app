@@ -30,6 +30,14 @@ class TestTextComparison(unittest.TestCase):
         answer = retrieveAnswer("I believe in Santa Claus.", "I beleive in Santa Claus.")
         self.assertEqual(answer, True)
 
+    def test_false_neg_4(self):
+        answer = retrieveAnswer("Сегодня солнце светит.", "Севодня солнце светит.")
+        self.assertEqual(answer, True)
+
+    def test_false_neg_5(self):
+        answer = retrieveAnswer("Идёт дождь.", "Дождь идёт.")
+        self.assertEqual(answer, True)
+
     # Cases that could mistakenly be correct
     # This test fails, but that may be unavoidable
     def test_false_pos_1(self):
