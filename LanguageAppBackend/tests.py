@@ -16,6 +16,10 @@ class TestTextComparison(unittest.TestCase):
     def test_incorrect_1(self):
         answer = retrieveAnswer("I want to drink beer.", "I want to drink tea.")
         self.assertEqual(answer, False)
+
+    def test_incorrect_2(self):
+        answer = retrieveAnswer("I have a cat.", "I have a dog.")
+        self.assertEqual(answer, False)
     
     # Cases that could mistakenly be incorrect
     def test_false_neg_1(self):
@@ -36,6 +40,14 @@ class TestTextComparison(unittest.TestCase):
 
     def test_false_neg_5(self):
         answer = retrieveAnswer("Идёт дождь.", "Дождь идёт.")
+        self.assertEqual(answer, True)
+
+    def test_false_neg_6(self):
+        answer = retrieveAnswer("Идёт дождь.", "Идет дождь.")
+        self.assertEqual(answer, True)
+
+    def test_false_neg_7(self):
+        answer = retrieveAnswer("On Monday I will go to town.", "I will go to town on Monday.")
         self.assertEqual(answer, True)
 
     # Cases that could mistakenly be correct

@@ -15,7 +15,7 @@ class TextComparison:
     def check_answer(self):
         # Check basic Levenshtein Distance
         score = fuzz.ratio(self.correct_answer, self.user_answer)
-        if score >= 92:
+        if score >= 90:
             return True
 
         # Check if string contains the same words in different orders
