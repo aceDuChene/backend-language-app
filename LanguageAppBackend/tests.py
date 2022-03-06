@@ -1,9 +1,11 @@
 import unittest
 from text_comparison import TextComparison
 
+
 def retrieveAnswer(str1, str2):
     comparison = TextComparison(str1, str2)
     return comparison.check_answer()
+
 
 class TestTextComparison(unittest.TestCase):
 
@@ -20,18 +22,22 @@ class TestTextComparison(unittest.TestCase):
     def test_incorrect_2(self):
         answer = retrieveAnswer("I have a cat.", "I have a dog.")
         self.assertEqual(answer, False)
-    
+
     # Cases that could mistakenly be incorrect
     def test_false_neg_1(self):
         answer = retrieveAnswer("I like apples", "I like apples.")
         self.assertEqual(answer, True)
 
     def test_false_neg_2(self):
-        answer = retrieveAnswer("I like apples and bananas.", "I like bananas and apples.")
+        answer = retrieveAnswer(
+            "I like apples and bananas.", "I like bananas and apples."
+        )
         self.assertEqual(answer, True)
 
     def test_false_neg_3(self):
-        answer = retrieveAnswer("I believe in Santa Claus.", "I beleive in Santa Claus.")
+        answer = retrieveAnswer(
+            "I believe in Santa Claus.", "I beleive in Santa Claus."
+        )
         self.assertEqual(answer, True)
 
     def test_false_neg_4(self):
@@ -47,13 +53,17 @@ class TestTextComparison(unittest.TestCase):
         self.assertEqual(answer, True)
 
     def test_false_neg_7(self):
-        answer = retrieveAnswer("On Monday I will go to town.", "I will go to town on Monday.")
+        answer = retrieveAnswer(
+            "On Monday I will go to town.", "I will go to town on Monday."
+        )
         self.assertEqual(answer, True)
 
     # Cases that could mistakenly be correct
     # This test fails, but that may be unavoidable
     def test_false_pos_1(self):
-        answer = retrieveAnswer("Yesterday I received a present.", "Yesterday I receive a present.")
+        answer = retrieveAnswer(
+            "Yesterday I received a present.", "Yesterday I receive a present."
+        )
         self.assertEqual(answer, False)
 
     def test_false_pos_2(self):
@@ -68,6 +78,7 @@ class TestTextComparison(unittest.TestCase):
     def test_false_pos_4(self):
         answer = retrieveAnswer("I have a pen.", "I have a pin.")
         self.assertEqual(answer, False)
+
 
 if __name__ == "__main__":
     unittest.main()

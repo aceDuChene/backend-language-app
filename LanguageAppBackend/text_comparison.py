@@ -1,5 +1,6 @@
 from fuzzywuzzy import fuzz
 
+
 class TextComparison:
     def __init__(self, user_answer, correct_answer):
         self.user_answer = self.remove_puncuation(user_answer)
